@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Deer Population Dynamic Estimation with Computer Vision</title>
+        <style>
+            .title {
+                text-align: center;
+            }
+
+            br {
+                display: block;
+                margin-bottom: 200px;
+            }
+
+            table {
+                margin-left: auto;
+                margin-right: auto;
+                border-collapse: collapse;
+                border: 2px solid black;
+            }
+
+            th, td {
+                padding: 10px;
+                border: 2px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1 class="title">Deer Population Dynamic Estimation with Computer Vision</h1>
+            <h2 class="title">CS 566 — Project Proposal</h2>
+            <p class="title"><strong>Team members: </strong>Yutong Yang (yang844), Jonathan Gregory (jgregory8), Jacky Chen (lchen643), Jiatong Yan (jyan262@wisc.edu)</p>
+
+            <h3>1. Problem Statement</h3>
+            <p>
+                For this project, we aim to leverage computer vision to estimate deer population dynamics from labeled trail camera images as part of the UW-Madison 2026 Machine Learning Marathon (MLM26) challenge “Snapshot Wisconsin: Oh Deer” [1]. Specifically, we will use data from the Snapshot Wisconsin: Oh Deer Kaggle dataset to train traditional and machine learning-based detectors that will estimate attributes about the deer in these images, such as their age and whether they have antlers. The dataset has about 4,880 labeled trail-camera images of deer, with bounding boxes and labels for age and antler status [2]. Our goal is to build a computer vision pipeline with two main steps:
+            </p>
+            <ol>
+                <li>Detect and localize deer in the original image.</li>
+                <li>Use the detected deer region to classify the deer as adult/young and antlered/antlerless.</li>
+            </ol>
+            <p>
+                Fulfilling these steps will satisfy the goals of the MLM26 challenge. We also want to look at whether the quality of the image affects the final classification result, as trail camera photos can be blurred or obscured by environmental features. For this, we will experiment with image filtering techniques to augment our dataset and explore ways in which simple and advanced image denoising techniques can increase the utility of our tools.
+            </p>
+
+            <h3>2. Motivation</h3>
+            <p>
+                Snapshot Wisconsin collects camera-trap imagery to support wildlife research and management. Automating the extraction of deer attributes could reduce manual review and support subsequent ecological analyses. However, distinguishing small antlers or identifying young deer can be difficult, especially in low-quality images. This project connects an application relevant to Wisconsin with CS 566 topics: image formation and sensing, spatial filtering, denoising, frequency-domain analysis, and edge detection. It also explores advanced topics in computer vision, like deep learning algorithms for image classification and object detection. Since a stated goal of the “Snapshot Wisconsin: Oh Deer” challenge is to create tools that are accurate, fast, and efficient, we will experiment with both classical and deep learning-based methods to find the approach that balances these objectives. 
+            </p>
+
+            <h3>3. Related Work and Current Approaches</h3>
+            <p>
+                There does not seem to be one established state-of-the-art method specifically for age and antler classification in deer, which is why this is a MLM26 challenge. For camera-trap images in general, a common approach is to first detect the animal and then perform a separate recognition or classification step. One widely used detector is MegaDetector, which was developed specifically for camera-trap images and is often used to locate animals, people, and vehicles before later analysis [3]. Recent wildlife-recognition work has also used pretrained foundation models and contrastive learning. For example, CATALOG uses visual and language representations to improve camera-trap recognition under domain shift [4]. BioCLIP is another recent foundation model designed for biological images and has shown strong results on fine-grained biological classification tasks [5]. Most of these methods focus on species recognition or broader wildlife classification. Our project is slightly different because we want to predict fine-grained attributes within the same species, specifically age and antler status. 
+            </p>
+
+            <h3>4. Proposed Approach and Contribution</h3>
+            <p>
+                We plan to build our tools using existing computer vision methods rather than develop completely new architectures. We will begin by examining how classical computer vision techniques can help solve this problem. Specifically, we intend to apply the Canny edge detector [6] and SIFT [7] to extract features from the images that we can use in downstream classifiers for antler identification and age estimation. We will then explore how using deep learning approaches can help with these tasks. For deer localization, we plan to use MegaDetector or a different YOLO-based detector [3]. For age and antler estimation, we plan to fine-tune a pretrained image classification model, such as ViT [8], for these tasks. Lastly, we will explore using image deburring techniques from class as well as more advanced methods (such as diffusion-assisted deblurring [9]) to improve detection accuracy in our pipeline.
+            </p>
+            <p>
+                One key aspect of our pipeline we want to experiment with is the type of input. Specifically, we want to compare detection results on: (1) the full trail-camera image;  (2) a crop of the image made using the ground-truth bounding box; and (3) a crop of the image made using the automatically detected bounding box. This should let us measure whether localization helps age and antler classification, and how much detector errors affect the next stage. If we have enough time, we may also compare more than one classifier or try other simple augmentation methods.
+            </p>
+
+            <h3>5. Hypothesis and Research Value</h3>
+            <p>
+                We are not proposing a completely new computer vision approach; rather, we are developing a new pipeline that will assist wildlife managers with automatically extracting deer population statistics from unlabeled data. Our goal is therefore not to claim that our pipeline will outperform all existing camera-trap systems, but that our pipeline is accurate, fast, efficient, and useful. We also aim to score highly in the MLM26 competition. 
+            </p>
+            <p>
+                Scientifically, we also want to study how much localization matters for fine-grained deer classification. Using the full image gives the classifier more information, but it also includes a lot of background that may not be useful. Cropping around the deer may make it easier for the classifier to focus on features such as body shape, head shape, or antlers. At the same time, automatically detected bounding boxes will not always be perfect. A poor bounding box might cut off part of the animal or include too much background. Because of this, we want to compare full images, ground-truth cropped images, and detected cropped images, and see how much these differences affect classification performance.
+            </p>
+
+            <h3>6. Evaluation</h3>
+            <p>
+                For deer localization, we plan to use standard metrics such as IoU, precision, recall, and mAP. For age and antler classification, we will report F1 score, precision, recall, and accuracy. F1 score is especially relevant because it is what the MLM26 challenge uses to evaluate the accuracy of submissions [2]. Our main comparison to test our hypothesis about how cropping an image detects classification performance will be:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Input to classifier</th>
+                        <th>Age F1</th>
+                        <th>Antler F1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Full image</th>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Ground-truth cropped image</th>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Detected cropped image</th>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                We also want to compare localization quality with classification performance. For example, we can group detections by IoU and check whether lower-quality bounding boxes lead to more classification errors. We will also look at performance on different types of images, such as daytime vs. nighttime images or images where the deer is small or partially occluded. Time permitting, we will explore techniques to improve image quality and compare how these methods improve our detection and classification accuracy.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Work Plan and Team Responsibilities</th>
+                    </tr>
+                    <tr>
+                        <th>Period</th>
+                        <th>Planned work and deliverables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>By September 29</td>
+                        <td>
+                            <ul>
+                                <li>Complete the project proposal.</li>
+                                <li>Download the dataset, understand the labels and bounding boxes, and create train/validation/test splits.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By October 10</td>
+                        <td>
+                            <ul>
+                                <li>Train a baseline age/antler classifier using ground-truth annotations.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By October 20</td>
+                        <td>
+                            <ul>
+                                <li>Set up the deer detector and evaluate localization quality.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By October 31</td>
+                        <td>
+                            <ul>
+                                <li>Connect the detection and classification stages.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By November 10</td>
+                        <td>
+                            <ul>
+                                <li>Compare full images, ground-truth crops, and automatically detected crops.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By November 20</td>
+                        <td>
+                            <ul>
+                                <li>Analyze the effect of localization quality on classification.</li>
+                                <li>Do additional error analysis.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Final Stage</td>
+                        <td>
+                            <ul>
+                                <li>Prepare results, figures, the final report, and the presentation.</li>
+                                <li>Submit results to MLM26 competition. </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <footer>
+            <h3>References</h3>
+            <p>[1] “Machine Learning Marathon,” Machine Learning Marathon, 2026. [Online]. Available: https://ml-marathon.wisc.edu/. [Accessed: Sep. 29, 2026].</p>
+            <p>[2] “Snapshot Wisconsin: Oh deer,” Kaggle. [Online]. Available: https://www.kaggle.com/competitions/snapshot-wi-oh-deer/overview. [Accessed: Sep. 29, 2026].</p>
+            <p>[3] S. Beery, D. Morris, and S. Yang, “Efficient pipeline for camera trap image review,” arXiv preprint arXiv:1907.06772, 2019.</p>
+            <p>[4] J. D. Santamaria, C. Isaza, and J. H. Giraldo, “CATALOG: A camera trap language-guided contrastive learning model,” in Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV), 2025.</p>
+            <p>[5] S. Stevens, J. Wu, M. J. Thompson, et al., “BioCLIP: A vision foundation model for the tree of life,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), 2024.</p>
+            <p>[6] J. Canny, “A computational approach to edge detection,” IEEE Trans. Pattern Anal. Mach. Intell., vol. PAMI-8, no. 6, pp. 679–698, Nov. 1986</p>
+            <p>[7] D. G. Lowe, “Distinctive Image Features from Scale-Invariant Keypoints,” International Journal of Computer Vision, vol. 60, pp. 91–110, 2004</p>
+            <p>[8] A. Dosovitskiy et al., “An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale,” ArXiv, vol. abs/2010.11929, 2020</p>
+            <p>[9] B. Xia et al., “DiffIR: Efficient Diffusion Model for Image Restoration,” in Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), Oct. 2023, pp. 13095–13105.</p>
+        </footer>
+    </body>
+</html>
