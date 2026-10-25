@@ -18,7 +18,9 @@ We used [NUMBER] training and [NUMBER] validation images from Snapshot Wisconsin
 Oh Deer. Splits were defined using [SHARED SPLIT / SEQUENCE / CAMERA / IMAGE],
 with [DUPLICATE AND LEAKAGE CHECKS]. Ground-truth boxes and jittered high-IoU
 windows supplied positives; low-overlap background supplied negatives. We
-confirmed [HOW ANNOTATION COMPLETENESS WAS CHECKED].
+did not establish annotation completeness; any background sampling must be
+disclosed as a noisy-label assumption unless a complete annotation audit is
+performed.
 
 The final model used [FEATURE COUNT] features, C=[VALUE], a maximum image side
 of [PIXELS], and [NUMBER] rounds of training-only hard-negative mining. The

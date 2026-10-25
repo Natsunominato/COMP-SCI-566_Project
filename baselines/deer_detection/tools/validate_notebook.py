@@ -1,6 +1,7 @@
 """Execute every notebook cell in a fresh local IPython kernel.
 
-This validates notebook code, not a Google-hosted Colab session or Kaggle data.
+This checks local notebook execution. --real-data exercises actual dataset
+files; neither mode verifies a Google-hosted Colab session or label completeness.
 Install requirements-notebook.txt in an isolated environment first.
 """
 from pathlib import Path

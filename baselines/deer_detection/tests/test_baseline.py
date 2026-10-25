@@ -113,9 +113,6 @@ class DatasetTest(unittest.TestCase):
             with self.assertRaises(ValueError):convert_coco(path,{3},True)
 
 
-if __name__=='__main__':unittest.main()
-
-
 class MatchingRegressionTest(unittest.TestCase):
     def test_matches_second_available_overlapping_truth(self):
         records=[{'image_id':'x','boxes':[[0,0,10,10],[2,0,12,10]]}]
@@ -124,3 +121,7 @@ class MatchingRegressionTest(unittest.TestCase):
         metrics=detection_metrics(records,predictions)
         self.assertEqual(metrics['true_positive'],2)
         self.assertEqual(metrics['false_negative'],0)
+
+
+if __name__ == "__main__":
+    unittest.main()

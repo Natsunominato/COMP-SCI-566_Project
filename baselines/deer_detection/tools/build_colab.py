@@ -208,7 +208,7 @@ comparing timings from different computers.
     code('''if MODE == "demo":
     run("demo", "--output", OUTPUT)
 else:
-    CONFIG = PROJECT / "configs" / "quick.json"  # Start small; use default.json for fuller training.
+    CONFIG = PROJECT / "configs" / "quick.json"  # Use the corrected real-data pilot; do not use default mining with incomplete labels.
     run("run", "--manifest", MANIFEST, "--image-root", IMAGE_ROOT,
         "--config", CONFIG, "--output", OUTPUT)
 ''','pipeline')
