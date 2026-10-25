@@ -1,0 +1,10 @@
+{
+  "n_features": 128,
+  "max_side": 480,
+  "max_train_images": 100,
+  "negative_per_image": 8,
+  "hard_negative_rounds": 0,
+  "fractions": [0.18, 0.3, 0.5],
+  "aspect_ratios": [0.75, 1.5],
+  "stride_fraction": 0.35
+}

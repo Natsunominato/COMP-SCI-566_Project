@@ -1,0 +1,26 @@
+{
+  "n_features": 256,
+  "max_side": 480,
+  "max_train_images": 200,
+  "max_val_images": 100,
+  "negative_per_image": 64,
+  "hard_negative_rounds": 0,
+  "allow_unverified_background": true,
+  "fractions": [
+    0.12,
+    0.18,
+    0.26,
+    0.38,
+    0.55,
+    0.78
+  ],
+  "aspect_ratios": [
+    0.65,
+    1.0,
+    1.5,
+    2.2
+  ],
+  "stride_fraction": 0.25,
+  "scan_positive_per_box": 8,
+  "svm_class_weight": null
+}

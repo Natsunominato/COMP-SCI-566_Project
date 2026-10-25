@@ -1,0 +1,16 @@
+{
+  "seed": 566,
+  "n_features": 256,
+  "max_side": 960,
+  "negative_per_image": 12,
+  "jitter_per_box": 3,
+  "hard_negative_rounds": 1,
+  "svm_c": 0.01,
+  "fractions": [0.12, 0.18, 0.26, 0.38, 0.55, 0.78],
+  "aspect_ratios": [0.65, 1.0, 1.5, 2.2],
+  "stride_fraction": 0.25,
+  "score_floor": -2.0,
+  "score_threshold": 0.0,
+  "nms_iou": 0.3,
+  "iou_threshold": 0.5
+}

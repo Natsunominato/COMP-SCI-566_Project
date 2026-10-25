@@ -1,0 +1,25 @@
+# Data and derived outputs must not be uploaded to GitHub.
+data/**
+!data/README.md
+outputs/**
+models/**
+*.joblib
+*.pkl
+*.pickle
+*.zip
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+.env
+.env.*
+kaggle.json
+access_token
+*credentials*.json
+*.pem
+.DS_Store
+__MACOSX/
