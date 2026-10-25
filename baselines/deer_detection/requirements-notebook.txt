@@ -1,0 +1,4 @@
+-r requirements.txt
+nbformat>=5.9,<6
+nbclient>=0.9,<1
+ipykernel>=6.25,<8
