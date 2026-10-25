@@ -1,0 +1,6 @@
+# Compatible versions; use the correct torch/torchvision build for your CPU or GPU.
+torch>=2.2
+torchvision>=0.17
+numpy>=1.24
+Pillow>=10.0
+scikit-learn>=1.3

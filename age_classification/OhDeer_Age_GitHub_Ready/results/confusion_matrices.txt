@@ -1,0 +1,12 @@
+Held-out test set: 732 images. Rows: true [ADULT,YOUNG]. Columns: predicted [ADULT,YOUNG].
+
+Full image:
+546   40
+ 42  104
+
+Ground-truth crop:
+572   14
+ 57   89
+
+Paired correctness outcomes: both correct 611, crop-only correct 50,
+full-only correct 39, both incorrect 32.

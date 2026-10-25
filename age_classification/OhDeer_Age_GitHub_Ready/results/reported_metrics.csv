@@ -1,0 +1,6 @@
+metric,full_image,gt_crop
+accuracy,0.888,0.903
+macro_f1,0.8237,0.8282
+young_f1,0.7172,0.7149
+young_precision,0.7222,0.8641
+young_recall,0.7123,0.6096
